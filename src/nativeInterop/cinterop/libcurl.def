@@ -1,0 +1,21 @@
+# headers is the list of header files to generate Kotlin stubs.
+# You can add multiple files to this entry, separating each with a \ on a new line.
+headers = curl/curl.h
+# headerFilter shows what exactly is included.
+# In C, all the headers are also included when one file references another one with the #include directive.
+# headerFilter is an optional argument and is mostly used when the library is installed as a system library.
+# It may be important to optimize the library size and fix potential conflicts between the system and the provided Kotlin/Native compilation environment.
+headerFilter = curl/*
+
+# The next lines are about providing linker and compiler options, which can vary depending on different target platforms.
+# Parameters without a suffix are also possible (for example, linkerOpts=) and applied to all platforms.
+compilerOpts.linux = -I/usr/include -I/usr/include/x86_64-linux-gnu
+linkerOpts.osx = -L/opt/local/lib -L/usr/local/opt/curl/lib -lcurl
+linkerOpts.linux = -L/usr/lib/x86_64-linux-gnu -lcurl
+linkerOpts.mingw_x64 = -lcurl \
+                       -L/usr/lib64 \
+                       -L/usr/lib/x86_64-linux-gnu \
+                       -L/opt/local/lib \
+                       -L/usr/local/opt/curl/lib \
+                       -L/opt/homebrew/opt/curl/lib \
+                       -L"C:/Program Files (x86)/mingw64/lib"
